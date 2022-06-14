@@ -43,11 +43,19 @@ public class AppInitializer {
         session.save(i2);
 */
 
-        /*update customer*/
+/*//update customer
         session.update(c2);
 
-        /*update item*/
-        session.update(i1);
+        //update item
+        session.update(i1);*/
+
+        /*get customer*/
+        Customer c = session.get(Customer.class, "C001");
+        System.out.println(c.getCusId() + " " + c.getCusName() + " " + c.getAddress());
+
+        /*get item*/
+        Item i = session.get(Item.class, "I002");
+        System.out.println(i.getCode() + " " + i.getDescription() + " " + i.getUnitPrice() + " " + i.getQtyOnHand());
 
         transaction.commit();
         session.close();
