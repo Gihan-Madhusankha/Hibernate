@@ -15,14 +15,14 @@ public class AppInitializer {
 
         Customer c2 = new Customer();
         c2.setCusId("C002");
-        c2.setCusName("Kamal");
-        c2.setAddress("Panadura");
+        c2.setCusName("Anil");
+        c2.setAddress("Kandy");
 
         Item i1 = new Item();
         i1.setCode("i001");
-        i1.setDescription("Milk");
-        i1.setUnitPrice(300);
-        i1.setQtyOnHand(36);
+        i1.setDescription("Cake");
+        i1.setUnitPrice(370);
+        i1.setQtyOnHand(40);
 
         Item i2 = new Item();
         i2.setCode("i002");
@@ -33,13 +33,21 @@ public class AppInitializer {
         Session session = FactoryConfiguration.getFactoryConfiguration().getSession();
         Transaction transaction = session.beginTransaction();
 
-        /*saveCustomer*/
+/*
+        //saveCustomer
         session.save(c1);
         session.save(c2);
 
-        /*save item*/
+        //save item
         session.save(i1);
         session.save(i2);
+*/
+
+        /*update customer*/
+        session.update(c2);
+
+        /*update item*/
+        session.update(i1);
 
         transaction.commit();
         session.close();
