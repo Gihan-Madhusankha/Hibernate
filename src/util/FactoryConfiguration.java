@@ -1,20 +1,22 @@
 package util;
 
+import entity.Customer;
+import entity.Item;
+import entity.Orders;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-/**
- * @author : Gihan Madhusankha
- * 2022-06-14 8:18 PM
- **/
 
 public class FactoryConfiguration {
     private static FactoryConfiguration factoryConfiguration;
     private final SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
-        Configuration configuration = new Configuration().configure();
+        Configuration configuration = new Configuration().configure()
+                .addAnnotatedClass(Customer.class)
+                .addAnnotatedClass(Item.class)
+                .addAnnotatedClass(Orders.class);
         sessionFactory = configuration.buildSessionFactory();
     }
 
