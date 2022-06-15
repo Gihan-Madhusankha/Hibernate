@@ -1,5 +1,6 @@
 import entity.Customer;
 import entity.Item;
+import entity.Orders;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.FactoryConfiguration;
@@ -59,13 +60,18 @@ public class AppInitializer {
         System.out.println(i.getCode() + " " + i.getDescription() + " " + i.getUnitPrice() + " " + i.getQtyOnHand());
 */
 
-        /*delete customer*/
+/*
+        //delete customer
         Customer customer = session.get(Customer.class, "C002");
         session.delete(customer);
 
-        /*delete item*/
+        //delete item
         Item item = session.get(Item.class, "I001");
         session.delete(item);
+*/
+
+
+
 
         transaction.commit();
         session.close();

@@ -1,8 +1,6 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +12,20 @@ public class Item {
     private double unitPrice;
     private int qtyOnHand;
 
-    @ManyToMany(mappedBy = "itemList")
-    private List<Orders> ordersList = new ArrayList<>();
+//    @ManyToMany
+//    private List<Orders> ordersList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private final List<OrderDetail> orderDetails = new ArrayList<>();
 
     public Item() {
     }
 
-    public Item(String code, String description, double unitPrice, int qtyOnHand, List<Orders> ordersList) {
+    public Item(String code, String description, double unitPrice, int qtyOnHand) {
         this.code = code;
         this.description = description;
         this.unitPrice = unitPrice;
         this.qtyOnHand = qtyOnHand;
-        this.ordersList = ordersList;
     }
 
     public String getCode() {
@@ -60,11 +60,19 @@ public class Item {
         this.qtyOnHand = qtyOnHand;
     }
 
-    public List<Orders> getOrdersList() {
-        return ordersList;
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "code='" + code + '\'' +
+                ", description='" + description + '\'' +
+                ", unitPrice=" + unitPrice +
+                ", qtyOnHand=" + qtyOnHand +
+                ", orderDetails=" + getOrderDetails() +
+                '}';
     }
 
-    public void setOrdersList(List<Orders> ordersList) {
-        this.ordersList = ordersList;
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 }

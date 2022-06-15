@@ -1,9 +1,8 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,27 +11,26 @@ import java.util.List;
 public class Orders {
     @Id
     private String orId;
+    @CreationTimestamp
     private LocalDate date;
 
     @ManyToOne
     private Customer customer;
-    @ManyToMany
-    private List<Item> itemList = new ArrayList<>();
+
+//    @ManyToMany(mappedBy = "ordersList")
+//    private List<Item> itemList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
 
     public Orders() {
     }
 
-    public Orders(String orId, LocalDate date, Customer customer) {
+    public Orders(String orId, LocalDate date, Customer customer, List<OrderDetail> orderDetails) {
         this.orId = orId;
         this.date = date;
         this.customer = customer;
-    }
-
-    public Orders(String orId, LocalDate date, Customer customer, List<Item> itemList) {
-        this.orId = orId;
-        this.date = date;
-        this.customer = customer;
-        this.itemList = itemList;
+        this.orderDetails = orderDetails;
     }
 
     public String getOrId() {
@@ -59,11 +57,22 @@ public class Orders {
         this.customer = customer;
     }
 
-    public List<Item> getItemList() {
-        return itemList;
+    public List<OrderDetail> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setItemList(List<Item> itemList) {
-        this.itemList = itemList;
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
+
+    @Override
+    public String toString() {
+        return "Orders{" +
+                "orId='" + orId + '\'' +
+                ", date=" + date +
+                ", customer=" + customer +
+                ", orderDetails=" + orderDetails +
+                '}';
+    }
+
 }

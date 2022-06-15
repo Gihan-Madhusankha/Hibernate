@@ -1,10 +1,9 @@
 package entity;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.LineInputStream;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,9 +15,16 @@ public class Customer {
     private String address;
 
     @OneToMany(mappedBy = "customer")
-    private List<Orders> orList;
+    private List<Orders> orList = new ArrayList<>();
 
     public Customer() {
+    }
+
+    public Customer(String cusId, String cusName, String address, List<Orders> orList) {
+        this.cusId = cusId;
+        this.cusName = cusName;
+        this.address = address;
+        this.orList = orList;
     }
 
     public String getCusId() {
@@ -43,5 +49,13 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Orders> getOrList() {
+        return orList;
+    }
+
+    public void setOrList(List<Orders> orList) {
+        this.orList = orList;
     }
 }
